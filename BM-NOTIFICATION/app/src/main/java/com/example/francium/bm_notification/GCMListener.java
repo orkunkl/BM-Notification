@@ -12,5 +12,6 @@ public class GCMListener extends GcmListenerService{
     @Override
     public void onMessageReceived(String from, Bundle data) {
         super.onMessageReceived(from, data);
+
     }
 }
