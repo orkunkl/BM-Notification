@@ -1,0 +1,43 @@
+{
+  "project_info": {
+    "project_id": "bilmuh-duyuru",
+    "project_number": "900244129606",
+    "name": "Bilmuh Duyuru"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900244129606:android:93b961e3674ae12e",
+        "client_id": "android:com.example.francium.bm_notification",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.example.francium.bm_notification",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

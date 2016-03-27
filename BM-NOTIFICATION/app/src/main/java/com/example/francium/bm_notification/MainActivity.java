@@ -1,22 +1,16 @@
 package com.example.francium.bm_notification;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.provider.DocumentsContract;
-import android.renderscript.Element;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -24,19 +18,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<String> gotInfoAL = new ArrayList<String>();
@@ -96,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {  //Refresh e bastığında
             Context context = getApplicationContext();
-            new FetchInfo().execute(); //toGetAll Info from bil muh ege
+            new InfoFetcherService().execute(); //toGetAll Info from bil muh ege
 
             return true;
 
@@ -140,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
         am.cancel(pi); // cancel any existing alarms
         if(ısConnectedToInt())
-          new FetchInfo().execute();
+          new InfoFetcherService().execute();
 
         am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 calendar.getTimeInMillis() + AlarmManager.INTERVAL_DAY,
@@ -160,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         am.cancel(pi); // cancel any existing alarms
 
         if(ısConnectedToInt())
-            new FetchInfo().execute();
+            new InfoFetcherService().execute();
 
         am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
@@ -171,9 +160,11 @@ public class MainActivity extends AppCompatActivity {
                 AlarmManager.INTERVAL_DAY, pi);*/
     }
     public void usingFetchInfo(){
-        new FetchInfo().execute(); //toGetAll Info from bil muh ege
+        db.noticeDeleter();
+        gotInfoAL.clear();
+        new InfoFetcherService().execute(); //toGetAll Info from bil muh egeF
     }
-    public class FetchInfo extends AsyncTask<Void, Void, Void> {
+    public class InfoFetcherService extends AsyncTask<Void, Void, Void> {
 
         String title;
         @Override
@@ -225,6 +216,14 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.dismiss();
         }
 
+    }
+    public class MyReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // This method is called when this BroadcastReceiver receives an Intent broadcast.
+            //Toast.makeText(context, "Action: " + intent.getAction(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
