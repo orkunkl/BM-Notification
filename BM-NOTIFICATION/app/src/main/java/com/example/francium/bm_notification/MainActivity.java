@@ -20,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.francium.bm_notification.Utils.DatabaseElement;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -221,6 +223,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            gotInfoAL.addAll(intent.getStringArrayListExtra("gotInfoAL"));
+            ArrayList<DatabaseElement> databaseElements = intent.getParcelableArrayListExtra("databaseElements");
+            for(DatabaseElement de : databaseElements){
+                db.noticeAdder(de.anInfoString,de.anInfoHref);
+            }
             // This method is called when this BroadcastReceiver receives an Intent broadcast.
             //Toast.makeText(context, "Action: " + intent.getAction(), Toast.LENGTH_SHORT).show();
         }

@@ -44,10 +44,10 @@ public class InfoFetcherService extends IntentService{
                 databaseElements.add(new DatabaseElement(anInfoString, anInfoHref));
             }
             Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction("com.example.francium.bm_notification");
+            broadcastIntent.setAction("com.example.francium.bm_notification.MainActivity");
             broadcastIntent.putExtra("var", "Fetch");
-            broadcastIntent.putExtra("gotInfoAL", gotInfoAL);
-            broadcastIntent.putExtra("databaseElements", databaseElements);
+            broadcastIntent.putStringArrayListExtra("gotInfoAL", gotInfoAL);
+            broadcastIntent.putParcelableArrayListExtra("databaseElements", databaseElements);
             LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
         } catch (Exception e) {
             e.printStackTrace();
